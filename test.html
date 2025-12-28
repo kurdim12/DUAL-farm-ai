@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DualFarm Server Status</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+        .status { background: white; padding: 20px; border-radius: 8px; margin: 10px 0; }
+        .ok { color: green; font-weight: bold; }
+        .info { color: blue; }
+        h1 { color: #10b981; }
+    </style>
+</head>
+<body>
+    <h1>🌱 DualFarm Server Status</h1>
+
+    <div class="status">
+        <h2>✅ Servers are Running!</h2>
+        <p class="ok">Backend: http://localhost:8000</p>
+        <p class="ok">Frontend: http://localhost:3000</p>
+    </div>
+
+    <div class="status">
+        <h3>Test Links (from within container):</h3>
+        <p><a href="http://localhost:8000/health" target="_blank">Backend Health Check</a></p>
+        <p><a href="http://localhost:8000/docs" target="_blank">API Documentation</a></p>
+        <p><a href="http://localhost:3000" target="_blank">Frontend Application</a></p>
+    </div>
+
+    <div class="status">
+        <h3 class="info">Note:</h3>
+        <p>If you're in Claude Code workspace, you need to use PORT FORWARDING to access from your browser.</p>
+        <p>Look for port forwarding links in your Claude Code interface.</p>
+    </div>
+
+    <script>
+        // Test API connectivity
+        fetch('http://localhost:8000/health')
+            .then(r => r.json())
+            .then(data => {
+                document.body.innerHTML += '<div class="status"><h3>✅ Backend Connectivity Test: SUCCESS</h3><pre>' + JSON.stringify(data, null, 2) + '</pre></div>';
+            })
+            .catch(err => {
+                document.body.innerHTML += '<div class="status"><h3>❌ Backend Connectivity Test: FAILED</h3><p>' + err + '</p></div>';
+            });
+    </script>
+</body>
+</html>
